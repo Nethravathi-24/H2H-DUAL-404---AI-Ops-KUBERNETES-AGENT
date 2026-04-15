@@ -1,49 +1,60 @@
-# H2H-DUAL-404---AI-Ops-KUBERNETES-AGENT
-This project develops an AGENTIC AI OPS ASSISTANT FOR KUBERNETES that enables users to diagnose cluster issues using natural language queries. The system translates user queries into kubecti commands, gathers cluster data, analyzes logs, identifies root causes and suggests corrective actions automatically.
-
-
 # Agentic AI Ops Assistant for Kubernetes
+
+### Team: Dual 404
+
+## Tagline
+
+AI-powered Kubernetes troubleshooting using natural language — Diagnose, Analyze, Fix.
+
+---
 
 ## Problem Statement
 
-Modern Kubernetes clusters are complex, and diagnosing failures manually requires deep technical expertise. Engineers spend significant time identifying root causes of issues like CrashLoopBackOff, resource limits, and misconfigurations.
+Managing Kubernetes clusters requires running multiple commands, analyzing logs, and diagnosing failures manually. This process is complex and time-consuming, especially during incidents like pod crashes, misconfigurations, or resource failures.
+
+---
 
 ## Proposed Solution
 
-This project builds an AI-powered Kubernetes assistant that allows users to diagnose cluster issues using natural language queries. The assistant converts queries into kubectl commands, analyzes cluster logs, detects root causes, and suggests fixes automatically.
+This project builds an Agentic AI Ops Assistant that allows users to interact with Kubernetes using natural language. The system translates user queries into kubectl commands, gathers logs, analyzes cluster state, detects root causes, and suggests fixes automatically.
+
+---
 
 ## Tech Stack
 
-Backend:
+**Backend:**
+Python, FastAPI
 
-* Python
-* FastAPI
-* LangChain
+**AI:**
+LangChain, Ollama (Llama3)
 
-DevOps:
+**DevOps:**
+Docker, Kubernetes (Minikube)
 
-* Docker
-* Kubernetes (Minikube)
+**Frontend:**
+Streamlit
 
-AI:
+---
 
-* Ollama
-* Llama3
+## Planned Features
 
-Frontend:
-
-* Streamlit
-
-## Features (Planned)
-
-* Natural Language Kubernetes Queries
-* Root Cause Detection
-* Fault Diagnosis
+* Natural Language Kubernetes Query Interface
+* Automated Root Cause Analysis
 * Suggested Fix Recommendations
-* Multi-turn Conversation Support
-* Cluster Monitoring Dashboard
+* Kubernetes Log Inspection
+* Fault Simulation Environment
+* Multi-turn AI Conversations
+
+---
+
+## Project Architecture (Initial)
+
+User → Chat Interface → AI Agent → kubectl → Kubernetes Cluster
+
+---
 
 ## Team Members
 
+Dual 404
 Member 1 — AI & Backend
 Member 2 — DevOps & Kubernetes
