@@ -56,5 +56,7 @@ User → Chat Interface → AI Agent → kubectl → Kubernetes Cluster
 ## Team Members
 
 Dual 404
-Member 1 — AI & Backend
-Member 2 — DevOps & Kubernetes
+
+NEETHU CHAUHAN — AI & Backend
+
+NETHRAVATHI D — DevOps & Kubernetes
