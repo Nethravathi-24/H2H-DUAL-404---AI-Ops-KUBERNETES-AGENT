@@ -1,0 +1,6 @@
+Project Name: Agentic AI Ops Assistant for Kubernetes
+
+Team Name: Dual 404
+
+Description:
+An AI-powered assistant that diagnoses Kubernetes failures using natural language queries. The system executes kubectl commands, analyzes logs, detects root causes, and recommends fixes automatically.
