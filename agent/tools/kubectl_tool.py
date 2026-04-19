@@ -1,45 +1,40 @@
 import subprocess
 
 
-def run_kubectl_command(command):
+def get_pods():
     """
-    Runs kubectl command safely
+    Get pod list and status
     """
+
     try:
         result = subprocess.run(
-            ["kubectl"] + command,
+            ["kubectl", "get", "pods"],
             capture_output=True,
             text=True
         )
 
-        if result.returncode == 0:
-            return result.stdout
-        else:
-            return result.stderr
+        lines = result.stdout.split("\n")
+
+        pods = []
+
+        # Skip header
+        for line in lines[1:]:
+
+            if line.strip() == "":
+                continue
+
+            parts = line.split()
+
+            pod_name = parts[0]
+            status = parts[2]
+
+            pods.append({
+                "name": pod_name,
+                "status": status
+            })
+
+        return pods
 
     except Exception as e:
-        return str(e)
-
-
-def get_pods():
-    """Get all pods"""
-    return run_kubectl_command(["get", "pods", "-o", "wide"])
-
-
-def get_nodes():
-    """Get cluster nodes"""
-    return run_kubectl_command(["get", "nodes"])
-
-
-def describe_pod(pod_name):
-    """Describe specific pod"""
-    return run_kubectl_command(
-        ["describe", "pod", pod_name]
-    )
-
-
-def delete_pod(pod_name):
-    """Restart pod by deleting"""
-    return run_kubectl_command(
-        ["delete", "pod", pod_name]
-    )
+        print("Error fetching pods:", e)
+        return []
