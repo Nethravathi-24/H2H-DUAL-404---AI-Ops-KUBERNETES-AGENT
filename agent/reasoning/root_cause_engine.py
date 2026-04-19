@@ -3,66 +3,90 @@ from agent.tools.log_tool import get_pod_logs
 from agent.memory.memory_manager import log_event
 
 
-def analyze_pods():
+def analyze_pod_status():
     """
     Analyze pod status and detect failures
     """
-    pods_output = get_pods()
+
+    pods = get_pods()
 
     issues = []
 
-    # Detect common failure states
-    if "CrashLoopBackOff" in pods_output:
-        issues.append("CrashLoopBackOff detected")
+    for pod in pods:
 
-    if "ImagePullBackOff" in pods_output:
-        issues.append("ImagePullBackOff detected")
+        name = pod["name"]
+        status = pod["status"]
 
-    if "Pending" in pods_output:
-        issues.append("Pending pod detected")
+        if status == "CrashLoopBackOff":
+            issues.append(
+                f"Pod {name} crashing repeatedly"
+            )
 
-    if "Error" in pods_output:
-        issues.append("Pod error detected")
+        elif status == "Pending":
+            issues.append(
+                f"Pod {name} stuck in Pending"
+            )
 
-    # Log detected issues
+        elif status == "Error":
+            issues.append(
+                f"Pod {name} has error state"
+            )
+
+    # Save issues to memory
     if issues:
         for issue in issues:
-            log_event(f"Issue detected: {issue}")
+            log_event(issue)
 
     return issues
 
 
 def get_root_cause():
     """
-    Determine root cause of issues
+    Determine root cause using logs
     """
-    issues = analyze_pods()
 
-    if not issues:
-        return "No issues detected. Cluster healthy."
+    pods = get_pods()
+
+    if not pods:
+        return ["No pods found."]
 
     causes = []
 
-    for issue in issues:
+    for pod in pods:
 
-        if "CrashLoopBackOff" in issue:
+        name = pod["name"]
+        status = pod["status"]
+
+        if status == "CrashLoopBackOff":
+
+            logs = get_pod_logs(name)
+
+            if "connection refused" in logs.lower():
+                causes.append(
+                    f"Pod {name} crashing — service connection refused."
+                )
+
+            elif "no module named" in logs.lower():
+                causes.append(
+                    f"Pod {name} crashing — Python dependency missing."
+                )
+
+            else:
+                causes.append(
+                    f"Pod {name} crashing repeatedly — check logs."
+                )
+
+        elif status == "Pending":
             causes.append(
-                "Pod crashing repeatedly — check container logs."
+                f"Pod {name} stuck in Pending — check resources."
             )
 
-        elif "ImagePullBackOff" in issue:
+        elif status == "Error":
             causes.append(
-                "Image not found — check container image name."
+                f"Pod {name} has error state."
             )
 
-        elif "Pending" in issue:
-            causes.append(
-                "Insufficient resources — check CPU/Memory."
-            )
-
-        elif "Error" in issue:
-            causes.append(
-                "Pod error detected — inspect logs."
-            )
+    if not causes:
+        return ["No issues detected. Cluster healthy."]
 
     return causes
