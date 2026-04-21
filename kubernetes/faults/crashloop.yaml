@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: crashloop-test
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: crashloop
+
+  template:
+    metadata:
+      labels:
+        app: crashloop
+
+    spec:
+      containers:
+      - name: crashloop
+        image: nginx
+        command: ["false"]
