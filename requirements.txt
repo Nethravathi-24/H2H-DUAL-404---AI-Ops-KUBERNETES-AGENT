@@ -1,4 +1,4 @@
-open ai
+openai
 kubernetes
 fastapi
 uvicorn
