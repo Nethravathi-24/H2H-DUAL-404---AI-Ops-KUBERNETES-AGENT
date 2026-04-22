@@ -5,13 +5,12 @@ from agent.utils.tool_logger import log_tool
 
 def analyze_pod_status():
     """
-    Detect pod failures like CrashLoopBackOff
-    and analyze logs for deeper root cause.
+    Detect pod failures and analyze logs
+    to identify possible root causes.
     """
 
     try:
 
-        # LOG kubectl command
         log_tool("Running: kubectl get pods")
 
         result = subprocess.run(
@@ -19,17 +18,6 @@ def analyze_pod_status():
             capture_output=True,
             text=True
         )
-
-        if result.returncode != 0:
-    
-            error_msg = (
-                "⚠️ Unable to fetch pod status. "
-                "Check Kubernetes cluster connection."
-            )
-
-            log_tool(error_msg)
-
-            return [error_msg]
 
         log_tool("Completed: kubectl get pods")
 
@@ -52,11 +40,11 @@ def analyze_pod_status():
             pod_name = parts[0]
             status = parts[2]
 
-            # Detect crashing pods
-            if "CrashLoopBackOff" in status:
+            # Detect failing pods
+            if status in ["Error", "CrashLoopBackOff"]:
 
                 log_tool(
-                    f"CrashLoop detected in pod: {pod_name}"
+                    f"Failure detected in pod: {pod_name}"
                 )
 
                 logs = get_pod_logs(pod_name)
@@ -65,34 +53,54 @@ def analyze_pod_status():
 
                     logs_lower = logs.lower()
 
+                    # Smart root cause detection
                     if "connection refused" in logs_lower:
 
                         issue = (
-                            f"⚠️ Pod {pod_name} crashing — connection refused detected"
+                            f"⚠️ Pod {pod_name} failing — "
+                            f"backend service not reachable"
                         )
 
-                    elif "error" in logs_lower:
+                    elif "crashloopbackoff" in logs_lower:
 
                         issue = (
-                            f"⚠️ Pod {pod_name} crashing — error found in logs"
+                            f"⚠️ Pod {pod_name} failing — "
+                            f"CrashLoopBackOff detected"
+                        )
+
+                    elif "imagepull" in logs_lower:
+
+                        issue = (
+                            f"⚠️ Pod {pod_name} failing — "
+                            f"image pull error"
                         )
 
                     elif "not found" in logs_lower:
 
                         issue = (
-                            f"⚠️ Pod {pod_name} crashing — resource not found"
+                            f"⚠️ Pod {pod_name} failing — "
+                            f"missing resource"
+                        )
+
+                    elif "error" in logs_lower:
+
+                        issue = (
+                            f"⚠️ Pod {pod_name} failing — "
+                            f"application error detected"
                         )
 
                     else:
 
                         issue = (
-                            f"⚠️ Pod {pod_name} crashing repeatedly — check logs."
+                            f"⚠️ Pod {pod_name} failing — "
+                            f"startup error suspected"
                         )
 
                 else:
 
                     issue = (
-                        f"⚠️ Pod {pod_name} crashing repeatedly — logs unavailable."
+                        f"⚠️ Pod {pod_name} failing — "
+                        f"logs unavailable."
                     )
 
                 issues.append(issue)
@@ -112,30 +120,17 @@ def analyze_pod_status():
 def analyze_pod_metrics():
     """
     Detect high memory and CPU usage.
-    FIXED version — safe parsing for --all-namespaces output.
     """
 
     try:
 
-        # LOG kubectl top command
         log_tool("Running: kubectl top pods")
 
         result = subprocess.run(
-            ["kubectl", "top", "pods", "--all-namespaces"],
+            ["kubectl", "top", "pods"],
             capture_output=True,
             text=True
         )
-
-        if result.returncode != 0:
-    
-            error_msg = (
-                "⚠️ Unable to fetch pod metrics. "
-                "Metrics server may not be installed."
-            )
-
-            log_tool(error_msg)
-
-            return [error_msg]
 
         log_tool("Completed: kubectl top pods")
 
@@ -151,60 +146,55 @@ def analyze_pod_metrics():
 
             parts = line.split()
 
-            # Expected format:
-            # NAMESPACE NAME CPU MEMORY
-
-            if len(parts) < 4:
+            # Safety check
+            if len(parts) < 3:
                 continue
 
-            namespace = parts[0]
-            pod_name = parts[1]
-            cpu = parts[2]
-            memory = parts[3]
+            pod_name = parts[0]
+            cpu = parts[1]
+            memory = parts[2]
 
-            # --------------------
-            # MEMORY CHECK
-            # --------------------
-
+            # Memory Analysis
             if "Mi" in memory:
 
                 try:
                     mem_value = int(
                         memory.replace("Mi", "")
                     )
+
+                    if mem_value > 300:
+
+                        issue = (
+                            f"⚠️ Pod {pod_name} "
+                            f"using high memory ({memory})"
+                        )
+
+                        issues.append(issue)
+                        log_tool(issue)
+
                 except:
-                    mem_value = 0
+                    continue
 
-                if mem_value > 300:
-
-                    issue = (
-                        f"⚠️ Pod {pod_name} using high memory ({memory})"
-                    )
-
-                    issues.append(issue)
-                    log_tool(issue)
-
-            # --------------------
-            # CPU CHECK
-            # --------------------
-
+            # CPU Analysis
             if "m" in cpu:
 
                 try:
                     cpu_value = int(
                         cpu.replace("m", "")
                     )
+
+                    if cpu_value > 500:
+
+                        issue = (
+                            f"⚠️ Pod {pod_name} "
+                            f"using high CPU ({cpu})"
+                        )
+
+                        issues.append(issue)
+                        log_tool(issue)
+
                 except:
-                    cpu_value = 0
-
-                if cpu_value > 500:
-
-                    issue = (
-                        f"⚠️ Pod {pod_name} using high CPU ({cpu})"
-                    )
-
-                    issues.append(issue)
-                    log_tool(issue)
+                    continue
 
         return issues
 
@@ -219,8 +209,8 @@ def analyze_pod_metrics():
 
 def get_root_cause():
     """
-    Combine all diagnostics.
-    Final unified root cause output.
+    Combine all diagnostics into
+    one unified root cause output.
     """
 
     log_tool("Starting root cause analysis")
