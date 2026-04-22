@@ -254,7 +254,9 @@ Ask AI Ops > root cause
 Ask AI Ops > exit
 👋 Exiting AI Ops Assistant...
 
+
 ---
+
 
 ## Screenshots 
 
@@ -304,6 +306,7 @@ This system can be used in:
 ## 👩‍💻 Team Information
 
 Team Name: DUAL 404
+
 Project Name: AI Ops Kubernetes Agent
 
 ---
