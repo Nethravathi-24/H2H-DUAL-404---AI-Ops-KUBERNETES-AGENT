@@ -3,7 +3,7 @@
 
 ---
 
-###TEAM : DUAL 404
+### TEAM : DUAL 404
 
 ## 📌 Project Overview
 
@@ -88,91 +88,93 @@ Deployment :	Kubernetes YAML
 
 ## 📁 Project Structure
 
+## 📁 Project Structure
+
+```
 H2H-DUAL-404-AI-Ops-Kubernetes-Agent/
 
-├── agent/                         # Core AI Agent System
+├── agent/                         # Core AI Agent System  
+│   ├── memory/                   # Conversation Memory  
+│   │   └── memory_manager.py  
+│   │
+│   ├── prompts/                  # AI Prompt Templates  
+│   │   ├── diagnosis_prompt.py  
+│   │   └── recommendation_prompt.py  
+│   │
+│   ├── reasoning/                # Root Cause & Analysis Engines  
+│   │   ├── root_cause_engine.py  
+│   │   ├── explanation_engine.py  
+│   │   ├── recommendation_engine.py  
+│   │   ├── risk_engine.py  
+│   │   ├── history_engine.py  
+│   │   └── health_summary.py  
+│   │
+│   ├── tools/                    # Kubernetes Tools  
+│   │   ├── kubectl_tool.py  
+│   │   ├── log_tool.py  
+│   │   └── metrics_tool.py  
+│   │
+│   ├── utils/                    # Logging Utilities  
+│   │   └── tool_logger.py  
+│   │
+│   ├── agent_core.py             # Main AI Assistant Logic  
+│   └── nl_query_engine.py        # Natural Language Query Engine  
 │
-│   ├── memory/                    # Conversation Memory
-│   │   └── memory_manager.py
+├── kubernetes/                  # Kubernetes Configurations  
+│   ├── deployments/  
+│   │   ├── backend-deployment.yaml  
+│   │   ├── frontend-deployment.yaml  
+│   │   └── database-deployment.yaml  
+│   │
+│   ├── services/  
+│   │   ├── backend-service.yaml  
+│   │   ├── frontend-service.yaml  
+│   │   └── database-service.yaml  
+│   │
+│   └── faults/                   # Fault Simulation Pods  
+│       ├── crashloop.yaml  
+│       ├── misconfigured.yaml  
+│       ├── pending_pod.yaml  
+│       └── resource_limit.yaml  
 │
-│   ├── prompts/                   # AI Prompt Templates
-│   │   ├── diagnosis_prompt.py
-│   │   └── recommendation_prompt.py
+├── microservices/               # Application Microservices  
+│   ├── backend/  
+│   │   ├── app.py  
+│   │   ├── Dockerfile  
+│   │   └── requirements.txt  
+│   │
+│   ├── frontend/  
+│   │   ├── app.py  
+│   │   ├── Dockerfile  
+│   │   └── requirements.txt  
+│   │
+│   └── database/  
+│       └── init.sql  
 │
-│   ├── reasoning/                 # Root Cause & Analysis Engines
-│   │   ├── root_cause_engine.py
-│   │   ├── explanation_engine.py
-│   │   ├── recommendation_engine.py
-│   │   ├── risk_engine.py
-│   │   ├── history_engine.py
-│   │   └── health_summary.py
+├── ui/                          # User Interface  
+│   └── dashboard.py  
 │
-│   ├── tools/                     # Kubernetes Tools
-│   │   ├── kubectl_tool.py
-│   │   ├── log_tool.py
-│   │   └── metrics_tool.py
+├── data/  
+│   └── history.json             # AI Memory History  
 │
-│   ├── utils/                     # Logging Utilities
-│   │   └── tool_logger.py
+├── logs/  
+│   └── agent_logs.txt  
 │
-│   ├── agent_core.py              # Main AI assistant logic
-│   └── nl_query_engine.py         # Natural Language Query Engine
+├── tests/                       # Unit Tests  
+│   ├── test_kubernetes.py  
+│   ├── test_memory.py  
+│   └── test_root_cause.py  
 │
-├── kubernetes/                    # Kubernetes Configurations
+├── screenshots/                 # Project Screenshots  
 │
-│   ├── deployments/               # Service Deployments
-│   │   ├── backend-deployment.yaml
-│   │   ├── frontend-deployment.yaml
-│   │   └── database-deployment.yaml
-│
-│   ├── services/                  # Kubernetes Services
-│   │   ├── backend-service.yaml
-│   │   ├── frontend-service.yaml
-│   │   └── database-service.yaml
-│
-│   ├── faults/                    # Fault Simulation Pods
-│   │   ├── crashloop.yaml
-│   │   ├── misconfigured.yaml
-│   │   ├── pending_pod.yaml
-│   │   └── resource_limit.yaml
-│
-├── microservices/                 # Application Microservices
-│
-│   ├── backend/
-│   │   ├── app.py
-│   │   ├── Dockerfile
-│   │   └── requirements.txt
-│
-│   ├── frontend/
-│   │   ├── app.py
-│   │   ├── Dockerfile
-│   │   └── requirements.txt
-│
-│   ├── database/
-│   │   └── init.sql
-│
-├── ui/                            # User Interface
-│   └── dashboard.py               # Streamlit Dashboard
-│
-├── data/                          # Runtime Data Storage
-│   └── history.json               # AI Memory History
-│
-├── logs/                          # Log Files
-│   └── agent_logs.txt
-│
-├── tests/                         # Unit Tests
-│   ├── test_kubernetes.py
-│   ├── test_memory.py
-│   └── test_root_cause.py
-│
-├── main.py                        # Application Entry Point
-├── requirements.txt               # Global Dependencies
-├── README.md                      # Project Documentation
-├── project_brief.txt              # Hackathon Submission Brief
-├── architecture.png               # System Architecture Diagram
-├── .gitignore
-└── tool_logs.txt
-
+├── main.py                      # Application Entry Point  
+├── requirements.txt             # Global Dependencies  
+├── README.md                    # Project Documentation  
+├── project_brief.txt            # Hackathon Submission Brief  
+├── architecture.png             # System Architecture Diagram  
+├── tool_logs.txt  
+└── .gitignore
+```
 ---
 
 ## 🚀 How to Run the Project
