@@ -1,3 +1,5 @@
+open ai
+kubernetes
 fastapi
 uvicorn
 langchain
