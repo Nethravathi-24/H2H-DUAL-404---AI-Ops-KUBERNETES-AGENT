@@ -1,6 +1,66 @@
-Project Name: Agentic AI Ops Assistant for Kubernetes
+PROJECT TITLE:
+AI Ops Kubernetes Agent — Intelligent Root Cause Analysis System
 
-Team Name: Dual 404
+TEAM NAME:
+DUAL 404
 
-Description:
-An AI-powered assistant that diagnoses Kubernetes failures using natural language queries. The system executes kubectl commands, analyzes logs, detects root causes, and recommends fixes automatically.
+PROJECT DOMAIN:
+Artificial Intelligence + DevOps + Cloud Computing
+
+PROBLEM STATEMENT:
+
+Managing Kubernetes clusters manually is challenging, especially when pods fail unexpectedly or consume excessive resources. Developers must manually inspect logs, analyze system metrics, and identify root causes, which can be time-consuming and error-prone.
+
+There is a need for an automated system that can detect failures, analyze logs, and provide intelligent insights to reduce debugging time and improve system reliability.
+
+PROPOSED SOLUTION:
+
+The AI Ops Kubernetes Agent is an intelligent monitoring system designed to automate Kubernetes troubleshooting. The system continuously monitors pod health, detects failures, and performs automated root cause analysis using log and metric inspection.
+
+Users can interact with the system using natural language queries such as:
+
+- pod status
+- why pods failing
+- root cause
+- memory usage
+- logs pod <pod-name>
+
+The system identifies issues such as CrashLoopBackOff errors, application startup failures, and high memory usage, and presents them in an understandable format.
+
+KEY FEATURES:
+
+- Kubernetes Cluster Monitoring
+- Automated Root Cause Analysis
+- CrashLoopBackOff Detection
+- Memory Usage Monitoring
+- Log-Based Failure Detection
+- Natural Language Query Interface
+- Interactive CLI Assistant
+- Streamlit Dashboard Visualization
+
+TECHNOLOGIES USED:
+
+- Python
+- Kubernetes
+- Docker
+- Minikube
+- kubectl
+- Streamlit
+- YAML
+- GitHub
+
+EXPECTED OUTCOME:
+
+The system reduces manual debugging time by automatically detecting failures and suggesting root causes. It improves system reliability and simplifies Kubernetes troubleshooting workflows.
+
+FUTURE SCOPE:
+
+- AI-based predictive failure detection
+- Integration with Prometheus and Grafana
+- Automated alert notifications
+- Self-healing Kubernetes deployments
+- Cloud-based deployment support
+
+CONCLUSION:
+
+The AI Ops Kubernetes Agent demonstrates how artificial intelligence can be applied to DevOps workflows to automate troubleshooting and improve operational efficiency. It provides a scalable and practical solution for managing modern containerized applications.
