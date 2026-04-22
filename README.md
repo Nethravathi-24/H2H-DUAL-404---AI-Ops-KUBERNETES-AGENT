@@ -1,4 +1,4 @@
-<img width="1408" height="768" alt="image" src="https://github.com/user-attachments/assets/258243cb-3b87-4cdd-8bb1-7ace4736bd26" /># 🚀 AI Ops Kubernetes Agent  
+# 🚀 AI Ops Kubernetes Agent  
 ### Intelligent Kubernetes Monitoring & Root Cause Analysis System
 
 ---
