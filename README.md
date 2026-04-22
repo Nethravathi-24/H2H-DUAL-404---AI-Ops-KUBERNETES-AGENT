@@ -309,6 +309,10 @@ Team Name: DUAL 404
 
 Project Name: AI Ops Kubernetes Agent
 
+Team Members: 
+* Nethravathi D
+* Neethu Chauhan
+
 ---
 
 ## 🏆 Conclusion
