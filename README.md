@@ -75,13 +75,21 @@ This diagram shows the interaction between the AI agent, Kubernetes cluster, and
 ## ⚙️ Technology Stack
 
 Backend	: Python
+
 Container Platform :	Docker
+
 Orchestration :	Kubernetes
+
 Local Cluster :	Minikube
+
 Monitoring :	kubectl
+
 UI Dashboard :	Streamlit
+
 AI Logic :	Python Rule-Based Reasoning
+
 Logging :	Custom Logger
+
 Deployment :	Kubernetes YAML
 
 ---
