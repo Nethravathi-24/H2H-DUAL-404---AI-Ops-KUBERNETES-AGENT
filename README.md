@@ -54,13 +54,21 @@ logs pod crashloop-test
 ## Key Features
 
 ✅ Kubernetes Cluster Monitoring
+
 ✅ Automated Root Cause Analysis
+
 ✅ CrashLoopBackOff Detection
+
 ✅ Memory Usage Monitoring
+
 ✅ Natural Language Query Interface
+
 ✅ Log-Based Failure Detection
+
 ✅ Interactive CLI Assistant
+
 ✅ Streamlit Dashboard Visualization
+
 ✅ Real-Time Pod Health Insights
 
 ---
