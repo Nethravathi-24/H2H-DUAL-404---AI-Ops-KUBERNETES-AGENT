@@ -338,3 +338,19 @@ AI Ops Kubernetes Agent demonstrates how intelligent automation can simplify com
 By combining Kubernetes monitoring with AI-powered reasoning, the system significantly reduces debugging time and improves system reliability.
 
 This project showcases a scalable approach to modern AI-driven infrastructure management.
+
+---
+
+## Live Deployment
+
+Live Dashboard : https://dual-404-ai-ops-kubernetes-agent.onrender.com/
+
+Note: Since Kubernetes runs locally, the cloud deployment displays the dashboard UI withour live cluster data.
+
+---
+
+## Demo Video
+
+Watch demp video : https://drive.google.com/file/d/1SGjR_-_KyXSAXgGH9qPyP0fsyTa8hqT_/view?usp=drivesdk
+
+----
