@@ -22,6 +22,7 @@ from agent.reasoning.history_engine import (
 )
 from agent.reasoning.risk_engine import calculate_risk
 from agent.nl_query_engine import process_query
+import matplotlib.pyplot as plt
 
 
 # -------------------------------
@@ -326,6 +327,27 @@ def run_dashboard():
     time.sleep(refresh_rate)
 
     st.rerun()
+
+# 📊 Pod Status Visualization
+
+st.subheader("📊 Pod Status Overview")
+
+# Example values (you can later connect real pod data)
+running_pods = 3
+failed_pods = 2
+pending_pods = 0
+
+labels = ["Running", "Failed", "Pending"]
+values = [running_pods, failed_pods, pending_pods]
+
+fig, ax = plt.subplots()
+ax.bar(labels, values)
+
+ax.set_title("Pod Health Status")
+ax.set_xlabel("Pod State")
+ax.set_ylabel("Number of Pods")
+
+st.pyplot(fig)
 
 
 # -------------------------------
