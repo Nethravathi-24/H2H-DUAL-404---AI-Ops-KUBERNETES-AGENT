@@ -8,3 +8,4 @@ streamlit
 pydantic
 python-dotenv
 rich
+matplotlib
